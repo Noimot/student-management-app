@@ -14,7 +14,7 @@ export interface ITab {
   switchTab: (tab: string) => void;
 }
 
-const page = () => {
+const Page = () => {
   let [tab, setTab] = useState<string>("personal_info");
   const switchTab = (tab: string) => {
     switch (tab) {
@@ -131,4 +131,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
