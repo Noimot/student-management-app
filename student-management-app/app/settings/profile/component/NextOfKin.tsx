@@ -2,6 +2,7 @@ import InputFileForm from "@/app/component/InputFileForm";
 import InputForm from "@/app/component/InputForm";
 import React from "react";
 import BackAndContinuButtons from "./BackAndContinuButtons";
+// import { ITab } from "../../../register/page";
 import { ITab } from "../page";
 
 const NextOfKin = ({ tab, setTab, switchTab }: ITab) => {

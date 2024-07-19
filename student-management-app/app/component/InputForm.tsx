@@ -43,7 +43,7 @@ const InputForm = ({
           max={max}
           {...field}
           {...rest}
-          className={`${className} w-full outline-transparent`}
+          className={`${className} w-full outline-transparent placeholder:text-xs`}
         />
       </div>
       {error && touched && (

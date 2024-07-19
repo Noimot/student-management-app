@@ -32,7 +32,7 @@ export default function Home() {
           <div>
             <ul className="flex items-center gap-x-5">
               <li>
-                <Link href="/">Login</Link>
+                <Link href="/login">Login</Link>
               </li>
               <li>
                 <Link href="/register">

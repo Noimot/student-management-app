@@ -9,19 +9,18 @@ import Button from "../component/Button";
 import AuthLayout from "../component/AuthLayout";
 import { useMutation, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
-import { register } from "../utils/service/auth";
+import { login } from "../utils/service/auth";
 
 const Page = () => {
-  const queryClient = useQueryClient();
-  // const navigate = useNavigate();
-  const [data, setData] = useState();
 
-  const mutation = useMutation(register, {
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(login, {
     onSuccess: (data) => {
       // Invalidate and refetch
-      setData(data);
-      queryClient.invalidateQueries("signup");
-      console.log(data, ' backend data')
+      // setData(data);
+      // queryClient.invalidateQueries("signup");
       // localStorage.setItem("token", data.token);
       // localStorage.setItem("user", JSON.stringify(data.data.user));
       toast.success("Signup successfully!");
@@ -36,55 +35,44 @@ const Page = () => {
   });
 
   const initialValues = {
-    first_name: "",
-    last_name: "",
     email: "",
+    password: ""
   };
 
   const form = useFormik({
     initialValues,
     validationSchema: object({
-      first_name: string().required("First Name is required"),
-      last_name: string().required("Last Name is required"),
+      password: string().required("Password is required"),
       email: string().email().required("Email is required"),
     }),
-    // validateOnMount: false,
-    // enableReinitialize: true,
     onSubmit: (values: any) => {
       console.log(values);
       mutation.mutate(values);
     },
   });
-
   return (
     <AuthLayout>
       <FormikProvider value={form}>
         <form onSubmit={form.handleSubmit}>
-          <h1 className="font-semibold text-xl">Registration Form</h1>
+          <h1 className="font-semibold text-xl">Login Form</h1>
           <div className="pt-10 space-y-6">
-            <InputForm
-              name="first_name"
-              type="text"
-              placeholder="First Name"
-              label="First Name"
-            />
-            <InputForm
-              name="last_name"
-              type="text"
-              placeholder="Last Name"
-              label="Last Name"
-            />
             <InputForm
               name="email"
               type="email"
               placeholder="Email"
               label="Email"
             />
+            <InputForm
+              name="password"
+              type="password"
+              placeholder="Password"
+              label="Password"
+            />
           </div>
           <div className="mt-16 flex justify-between items-center">
-            <Button text="Register" type="submit" />
-            <Link href="/login" className="flex items-center gap-x-2">
-              Sign in
+            <Button text="Login" type="submit" />
+            <Link href="/register" className="flex items-center gap-x-2">
+              Sign up
               <img src="/right-arrow.svg" alt="" className="w-5 h-5" />
             </Link>
           </div>

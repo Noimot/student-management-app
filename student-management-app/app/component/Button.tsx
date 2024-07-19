@@ -6,13 +6,15 @@ interface IButton {
   link?: string;
   icon?: string;
   onClick?: () => void;
+  type?: "submit" | "reset" | "button" | undefined;
 }
 
-const Button = ({ text, className, link, icon, onClick }: IButton) => {
+const Button = ({ text, className, link, icon, onClick, type }: IButton) => {
   return (
     <button
       className={`${className} bg-light-red px-5 py-2 rounded-md text-white flex items-center gap-x-2`}
       onClick={onClick}
+      type={type}
     >
       {icon && (
         <span>
