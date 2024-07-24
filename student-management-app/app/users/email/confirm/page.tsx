@@ -14,7 +14,6 @@ const ConfirmEmail = () => {
   const mutation = useMutation(verify, {
     onSuccess: (data) => {
       // Invalidate and refetch
-      console.log(data.data.message, " backend data");
       toast.success(data.data.message);
       router.push("/login");
     },
