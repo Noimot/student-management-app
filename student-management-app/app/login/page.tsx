@@ -10,21 +10,19 @@ import AuthLayout from "../component/AuthLayout";
 import { useMutation, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import { login } from "../utils/service/auth";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
 
 
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const mutation = useMutation(login, {
     onSuccess: (data) => {
-      // Invalidate and refetch
-      // setData(data);
-      // queryClient.invalidateQueries("signup");
-      // localStorage.setItem("token", data.token);
-      // localStorage.setItem("user", JSON.stringify(data.data.user));
       toast.success("Signup successfully!");
-      // navigate("/");
+      router.push("/login");
+
     },
     onError: (error) => {
       console.log(error, 'error');
@@ -33,6 +31,9 @@ const Page = () => {
       );
     },
   });
+
+  const { mutate, isLoading } = mutation;
+
 
   const initialValues = {
     email: "",
@@ -46,8 +47,7 @@ const Page = () => {
       email: string().email().required("Email is required"),
     }),
     onSubmit: (values: any) => {
-      console.log(values);
-      mutation.mutate(values);
+      mutate(values);
     },
   });
   return (
@@ -70,7 +70,7 @@ const Page = () => {
             />
           </div>
           <div className="mt-16 flex justify-between items-center">
-            <Button text="Login" type="submit" />
+            <Button text="Login" type="submit" loading={isLoading}/>
             <Link href="/register" className="flex items-center gap-x-2">
               Sign up
               <img src="/right-arrow.svg" alt="" className="w-5 h-5" />

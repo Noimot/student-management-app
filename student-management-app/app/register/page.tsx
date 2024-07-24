@@ -10,30 +10,30 @@ import AuthLayout from "../component/AuthLayout";
 import { useMutation, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import { register } from "../utils/service/auth";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const queryClient = useQueryClient();
-  // const navigate = useNavigate();
+  const router = useRouter();
+
   const [data, setData] = useState();
 
   const mutation = useMutation(register, {
     onSuccess: (data) => {
       // Invalidate and refetch
-      setData(data);
-      queryClient.invalidateQueries("signup");
-      console.log(data, ' backend data')
-      // localStorage.setItem("token", data.token);
-      // localStorage.setItem("user", JSON.stringify(data.data.user));
-      toast.success("Signup successfully!");
-      // navigate("/");
+      console.log(data.data.message, " backend data");
+      toast.success(data.data.message);
+      router.push("/confirm_email");
     },
     onError: (error) => {
-      console.log(error, 'error');
+      console.log(error, "error");
       toast.error(
         "Signup failed. Please check your credentials and try again."
       );
     },
   });
+
+  const { mutate, isLoading } = mutation;
 
   const initialValues = {
     first_name: "",
@@ -52,7 +52,7 @@ const Page = () => {
     // enableReinitialize: true,
     onSubmit: (values: any) => {
       console.log(values);
-      mutation.mutate(values);
+      mutate(values);
     },
   });
 
@@ -82,7 +82,7 @@ const Page = () => {
             />
           </div>
           <div className="mt-16 flex justify-between items-center">
-            <Button text="Register" type="submit" />
+            <Button text="Register" type="submit" loading={isLoading} />
             <Link href="/login" className="flex items-center gap-x-2">
               Sign in
               <img src="/right-arrow.svg" alt="" className="w-5 h-5" />
