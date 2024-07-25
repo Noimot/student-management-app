@@ -24,10 +24,10 @@ const Page = () => {
       router.push("/login");
 
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.log(error, 'error');
       toast.error(
-        "Signup failed. Please check your credentials and try again."
+        error
       );
     },
   });

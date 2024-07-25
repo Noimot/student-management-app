@@ -25,11 +25,9 @@ const Page = () => {
       toast.success(data.data.message);
       router.push("/confirm_email");
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.log(error, "error");
-      toast.error(
-        "Signup failed. Please check your credentials and try again."
-      );
+      toast.error(error);
     },
   });
 

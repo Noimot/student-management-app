@@ -17,9 +17,9 @@ const ConfirmEmail = () => {
       toast.success(data.data.message);
       router.push("/login");
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.log(error, "error");
-      toast.error("Veification failed.");
+      toast.error(error);
     },
   });
 
